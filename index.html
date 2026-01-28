@@ -1,5 +1,321 @@
-<html>
-	<title>Zenith's Site</title>
-	<h1>Welcome to my site!<h1>
-	<p>!! This site is still in progress, I apologize.</p>
-	
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zenith's Site</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      color: #eaeaea;
+      line-height: 1.6;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* --- Starfield background --- */
+    canvas#stars {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(ellipse at bottom, #050518 0%, #000010 100%);
+      z-index: -1;
+    }
+
+    /* --- Navbar --- */
+    nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      padding: 15px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(6px);
+      transition: background 0.4s ease, padding 0.4s ease;
+      z-index: 100;
+    }
+
+    nav.scrolled {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 10px 8%;
+    }
+
+    nav h1 {
+      font-size: 1.8rem;
+      color: #4cc0ff;
+      letter-spacing: 1px;
+      transition: 0.3s;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      color: #b0d9ff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #4cc0ff;
+    }
+
+    /* --- Header --- */
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+    }
+
+    header h1 {
+      font-size: 4rem;
+      color: #4cc0ff;
+      text-shadow: 0 0 20px #0a2942;
+    }
+
+    header p {
+      font-size: 1.3rem;
+      margin-top: 1rem;
+      color: #c0e6ff;
+    }
+
+    .join-btn {
+      display: inline-block;
+      margin-top: 2rem;
+      background: #4cc0ff;
+      color: #111;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .join-btn:hover {
+      background: #74d1ff;
+      transform: scale(1.05);
+    }
+
+    /* --- Sections --- */
+    section {
+      padding: 80px 15%;
+      background: rgba(0, 0, 20, 0.7);
+      border-bottom: 1px solid #0a0a20;
+    }
+
+    section h2 {
+      color: #4cc0ff;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      text-shadow: 0 0 10px #081c3a;
+    }
+
+    ul { list-style: none; padding-left: 0; }
+
+    ul li::before {
+      content: "• ";
+      color: #4cc0ff;
+    }
+
+    .mods-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .mods-grid li {
+      background: rgba(20, 30, 50, 0.8);
+      padding: 10px 15px;
+      border-radius: 8px;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .mods-grid li:hover {
+      transform: scale(1.03);
+      background: rgba(40, 60, 90, 0.9);
+    }
+
+    .mods-grid a {
+      color: #78caff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .mods-grid a:hover {
+      color: #a8e6ff;
+      text-shadow: 0 0 8px #a8e6ff;
+    }
+
+    /* --- Footer --- */
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #88aacc;
+      font-size: 0.9rem;
+    }
+
+    /* --- Back to Top --- */
+    #backToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #4cc0ff;
+      color: #000;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.2rem;
+      box-shadow: 0 0 10px #4cc0ff;
+      opacity: 0;
+      transition: 0.4s;
+    }
+
+    #backToTop.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="stars" width="1365" height="953"></canvas>
+
+  <nav id="navbar">
+    <h1>{Zenith}</h1>
+    <ul>
+      <li><a href="#about">About Me</a></li>
+      <li><a href="#links">Links</a></li>
+      <li><a href="#subcount">Sub count</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>Welcome to my site!</h1>
+  </header>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>Hey! I'm Zenith, a guy from Bulgaria. 
+      I like (trying to) developing things, as I am currently making a OS with a friend. 
+      I like OneShot and other games like that.
+    </p>
+  </section>
+
+  <section id="links">
+    <h2>Links</h2>&gt;
+    <p>Here are the links!</p>
+    <ul>
+      <li><strong>> YouTube:</strong><a href="https://youtube.com/@zenith07x">@zenith07x</a></li>
+      <li><strong>> Discord:</strong> <a href="https://discord.gg/JvyGD2QWr6">Server invite link</a></li>
+      <li><strong>> Twitter:</strong> <a href="https://x.com/zenith07x">@zenith07x</a></li>
+    </ul>
+  </h2></section>
+
+<section id="subcount" style="background-color: white; width: 350px; height: 150px;">
+  <iframe
+    src="https://livecounts.io/embed/youtube-live-subscriber-counter/UCVvDE_6THdsxksFhCQeoWVw"
+    width="200"
+    height="100"
+    frameborder="0"
+    style="background-color: white;"
+  ></iframe>
+</section>
+
+
+  <footer>
+    Zenith's Site, 2026
+  </footer>
+
+  <button id="backToTop">↑</button>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Back to top button
+    const topBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) topBtn.classList.add('show');
+      else topBtn.classList.remove('show');
+    });
+    topBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Full-screen 2D starfield with mouse attraction
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    const starCount = 500;
+    const mouse = { x: null, y: null };
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars = [];
+      for (let i = 0; i < starCount; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 2 + 0.5,
+          speed: Math.random() * 0.3 + 0.05
+        });
+      }
+    }
+
+    function draw() {
+      ctx.fillStyle = '#000010';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#4cc0ff';
+
+      for (let i = 0; i < starCount; i++) {
+        const star = stars[i];
+
+        // Move star downward slightly
+        star.y += star.speed;
+        if (star.y > canvas.height) star.y = 0;
+
+        // Mouse attraction effect
+        let px = star.x;
+        let py = star.y;
+        if (mouse.x !== null && mouse.y !== null) {
+          const dx = mouse.x - px;
+          const dy = mouse.y - py;
+          const distance = Math.sqrt(dx*dx + dy*dy);
+          const attraction = Math.min(5, 150 / (distance + 1));
+          px += dx * attraction * 0.02;
+          py += dy * attraction * 0.02;
+        }
+
+        ctx.fillRect(px, py, star.size, star.size);
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
+  </script>
+
+
+</body></html>
